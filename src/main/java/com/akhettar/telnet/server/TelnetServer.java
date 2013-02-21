@@ -1,11 +1,11 @@
 package com.akhettar.telnet.server;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import com.akhettar.telnet.Constants;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,51 +16,53 @@ import java.net.Socket;
  */
 public class TelnetServer {
 
+    private final int NUMBER_OF_THREADS = 120;
+    private ServerSocket server = null;
+    private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
     /**
      * The main method to start the telnet server
      */
-    public static void run() {
-        int port = 18876;
-        ServerSocket server = null;
-        Socket socket = null;
+    public void run() {
 
         try {
 
             while (true) {
-                server = new ServerSocket(port);
-                System.out.println("Server running");
 
-                socket = server.accept();
+                // establish the connection
+                server = new ServerSocket(Constants.PORT_NUM);
+                System.out.println("Server running and listening on port : " + Constants.PORT_NUM);
 
-                final BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                final PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-
-                boolean exit = false;
-                while (!exit) {
-                    final String message = reader.readLine();
-                    if (message.equals("status")) {
-                        out.println("Server running...");
-                    } else if (message.equals("exit")) {
-                        exit = true;
-                    } else {
-                        out.println("Echo: " + message);
-                    }
-                }
+                // send the job the to the client worker
+                executor.execute(new ClientWorker(server.accept()));
 
             }
-            // Initialise socket and start the server
 
         } catch (IOException e) {
 
         } finally {
-            if (socket == null)
-                try {
-                    socket.close();
-                } catch (IOException e) {
-
-                }
+            executor.shutdown();
 
         }
 
+    }
+
+    /**
+     * Checks if the server is running.
+     * 
+     * @return
+     */
+    public boolean isRunning() {
+        return !server.isClosed();
+    }
+
+    /**
+     * Shutdowns all the connection and the server
+     * 
+     * @throws IOException
+     */
+    public void shutDown() throws IOException {
+
+        server.close();
     }
 }

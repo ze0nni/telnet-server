@@ -9,7 +9,7 @@ package com.akhettar.telnet.command;
 public interface CommandHandler {
 
     /**
-     * Handle the task.
+     * Handles the task.
      */
-    void handle();
+    String handle();
 }

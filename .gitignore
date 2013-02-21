@@ -1,5 +1,9 @@
 *.class
-
+.classpath
+.idea/*
+.project
+telnet-server.iml
+target/
 # Package Files #
 *.jar
 *.war
