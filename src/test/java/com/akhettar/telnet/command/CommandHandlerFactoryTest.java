@@ -28,7 +28,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetCDHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("cd") instanceof CDHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("cd", "") instanceof CDHandler);
     }
 
     /**
@@ -37,7 +37,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetLSHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("ls") instanceof LSHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("ls", "") instanceof LSHandler);
     }
 
     /**
@@ -46,7 +46,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetMkdirHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("mkdir") instanceof MKDIRHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("mkdir", "") instanceof MKDIRHandler);
     }
 
     /**
@@ -55,7 +55,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetPWDHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("pwd") instanceof PWDHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("pwd", "") instanceof PWDHandler);
     }
 
     /**
@@ -64,7 +64,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetExitHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("exit") instanceof ExitHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("exit", "") instanceof ExitHandler);
     }
 
     /**
@@ -73,7 +73,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetStatusDHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("status") instanceof StatusHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("status", "") instanceof StatusHandler);
     }
 
     /**
@@ -82,7 +82,7 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetUnknownHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("hello") instanceof UnknownCommandHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("hello", "") instanceof UnknownCommandHandler);
     }
 
 }

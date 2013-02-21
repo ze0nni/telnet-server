@@ -1,6 +1,6 @@
 package com.akhettar.telnet.command;
 
-import java.util.StringTokenizer;
+import java.io.File;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -15,9 +15,11 @@ public class CDHandler implements CommandHandler {
 
     private final String command;
     private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final String workingDir;
 
-    public CDHandler(final String command) {
+    public CDHandler(final String command, String workingDir) {
         this.command = command;
+        this.workingDir = workingDir;
     }
 
     /*
@@ -28,9 +30,19 @@ public class CDHandler implements CommandHandler {
     @Override
     public String handle() {
 
-        logger.info("running the follwoing commnad:" + command);
-        new StringTokenizer(command, " ");
-        return null;
+        logger.info("Running the follwing command: " + command);
+        String dirpath = command.split(" ")[1];
+        StringBuilder builder = new StringBuilder();
+        if (workingDir == null) {
+            builder.append(dirpath);
+            builder.append(File.separator);
+            builder.append(workingDir);
+        } else {
+            builder.append(workingDir);
+            builder.append(File.separator);
+            builder.append(dirpath);
+        }
+        return dirpath;
 
     }
 

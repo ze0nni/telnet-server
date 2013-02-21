@@ -13,9 +13,11 @@ public class LSHandler implements CommandHandler {
 
     private final String command;
     private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final String workingDir;
 
-    public LSHandler(final String command) {
+    public LSHandler(final String command, String workingDir) {
         this.command = command;
+        this.workingDir = workingDir;
     }
 
     /*
@@ -28,7 +30,7 @@ public class LSHandler implements CommandHandler {
 
         logger.info("running the follwoing commnad:" + command);
 
-        return null;
+        return workingDir;
 
     }
 

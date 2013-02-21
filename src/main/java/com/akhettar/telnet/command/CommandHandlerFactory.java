@@ -26,17 +26,18 @@ public class CommandHandlerFactory {
      * Get handler for given command.
      * 
      * @param command
+     * @param workingDir
      * @return
      */
-    public CommandHandler getHandler(String command) {
+    public CommandHandler getHandler(final String command, final String workingDir) {
         if (command.matches("^cd.*")) {
-            return new CDHandler(command);
+            return new CDHandler(command, workingDir);
         } else if (command.matches("^ls.*")) {
-            return new LSHandler(command);
+            return new LSHandler(command, workingDir);
         } else if (command.matches("^pwd.*")) {
-            return new PWDHandler(command);
+            return new PWDHandler(command, workingDir);
         } else if (command.matches("^mkdir.*")) {
-            return new MKDIRHandler(command);
+            return new MKDIRHandler(command, workingDir);
         } else if (command.equalsIgnoreCase("status")) {
             return new StatusHandler(command);
         } else if (command.equalsIgnoreCase("exit")) {

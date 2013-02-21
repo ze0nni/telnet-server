@@ -6,6 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import com.akhettar.telnet.command.CDHandler;
 import com.akhettar.telnet.command.CommandHandler;
 import com.akhettar.telnet.command.CommandHandlerFactory;
 import com.akhettar.telnet.command.ExitHandler;
@@ -20,6 +24,8 @@ import com.akhettar.telnet.command.ExitHandler;
 public class ClientWorker implements Runnable {
 
     private final Socket socket;
+    private String WORKING_DIR = null;
+    private final Logger logger = LogManager.getLogger(ClientWorker.class);
 
     /**
      * @param socket
@@ -47,9 +53,20 @@ public class ClientWorker implements Runnable {
                 if (command == null) {
                     continue;
                 }
-                final CommandHandler handler = fac.getHandler(command);
-                out.println(handler.handle());
 
+                //handle the command
+                final CommandHandler handler = fac.getHandler(command, WORKING_DIR);
+                final String response = handler.handle();
+
+                // setting the working directory
+                if (handler instanceof CDHandler) {
+                    WORKING_DIR = response;
+                    logger.info("Working directory set to: " + WORKING_DIR);
+                }
+
+                out.println(response);
+
+                // command issuing an exit.
                 if (handler instanceof ExitHandler) {
                     cancel = true;
                 }

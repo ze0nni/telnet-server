@@ -14,9 +14,11 @@ public class PWDHandler implements CommandHandler {
 
     private final String command;
     private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final String workingDir;
 
-    public PWDHandler(final String command) {
+    public PWDHandler(final String command, String workingDir) {
         this.command = command;
+        this.workingDir = workingDir;
     }
 
     /*
@@ -28,8 +30,7 @@ public class PWDHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
-
-        return null;
+        return workingDir;
 
     }
 
