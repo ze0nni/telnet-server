@@ -1,5 +1,7 @@
 package com.akhettar.telnet.command;
 
+import java.util.StringTokenizer;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -27,7 +29,7 @@ public class CDHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
-
+        new StringTokenizer(command, " ");
         return null;
 
     }

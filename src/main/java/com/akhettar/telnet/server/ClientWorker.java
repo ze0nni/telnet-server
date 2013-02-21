@@ -44,6 +44,9 @@ public class ClientWorker implements Runnable {
             while (!cancel) {
 
                 final String command = reader.readLine();
+                if (command == null) {
+                    continue;
+                }
                 final CommandHandler handler = fac.getHandler(command);
                 out.println(handler.handle());
 

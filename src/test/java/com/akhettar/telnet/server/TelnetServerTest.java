@@ -16,6 +16,7 @@ import com.akhettar.telnet.Constants;
 import com.akhettar.telnet.util.ServerLauncherHelper;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * 
@@ -71,6 +72,22 @@ public class TelnetServerTest {
         writer.println("status");
         final String message = in.readLine();
         assertEquals("Server running", message);
+
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.server.TelnetServer#run()}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testInvokeUnknownCommand() throws IOException {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        writer.println("hello");
+        final String message = in.readLine();
+        assertTrue(message.contains("Unknown command [hello]"));
 
     }
 
