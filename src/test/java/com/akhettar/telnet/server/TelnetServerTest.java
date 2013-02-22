@@ -92,6 +92,21 @@ public class TelnetServerTest {
     }
 
     /**
+     * Test method for {@link com.akhettar.telnet.server.TelnetServer#run()}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testCDCommandDirectoryDoesNotExsit() throws IOException {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        writer.println("cd /usr/dfjlkdjflkdjflkadjfld");
+        assertEquals("cd: /usr/dfjlkdjflkdjflkadjfld/: No such file or directory", in.readLine());
+
+    }
+
+    /**
      * @throws InterruptedException
      */
     private void startServerInBackground() throws InterruptedException {

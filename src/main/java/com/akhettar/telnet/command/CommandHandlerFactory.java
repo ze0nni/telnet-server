@@ -34,9 +34,9 @@ public class CommandHandlerFactory {
             return new CDHandler(command, workingDir);
         } else if (command.matches("^ls.*")) {
             return new LSHandler(command, workingDir);
-        } else if (command.matches("^pwd.*")) {
+        } else if (command.matches("^pwd.*$")) {
             return new PWDHandler(command, workingDir);
-        } else if (command.matches("^mkdir.*")) {
+        } else if (command.matches("^mkdir .*")) {
             return new MKDIRHandler(command, workingDir);
         } else if (command.equalsIgnoreCase("status")) {
             return new StatusHandler(command);

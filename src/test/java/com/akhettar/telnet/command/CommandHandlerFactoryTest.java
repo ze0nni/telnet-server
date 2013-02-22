@@ -46,7 +46,16 @@ public class CommandHandlerFactoryTest {
     @Test
     public void testGetMkdirHandler() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("mkdir", "") instanceof MKDIRHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("mkdir etc", "") instanceof MKDIRHandler);
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.command.CommandHandlerFactory#getHandler(java.lang.String)}.
+     */
+    @Test
+    public void testGetMkdirHandlerNoSpaceBetewenCommandAndDirShouldReturnUnknownCommand() {
+
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("mkdiretc", "") instanceof UnknownCommandHandler);
     }
 
     /**

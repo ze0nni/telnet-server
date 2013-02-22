@@ -32,18 +32,30 @@ public class CDHandler implements CommandHandler {
 
         logger.info("Running the follwing command: " + command);
         String dirpath = command.split(" ")[1];
-        StringBuilder builder = new StringBuilder();
+        StringBuilder newpath = new StringBuilder();
         if (workingDir == null) {
-            builder.append(dirpath);
-            builder.append(File.separator);
-            builder.append(workingDir);
+            newpath.append(dirpath);
         } else {
-            builder.append(workingDir);
-            builder.append(File.separator);
-            builder.append(dirpath);
+            newpath.append(workingDir);
+            newpath.append(File.separator);
+            newpath.append(dirpath);
         }
-        return dirpath;
+        return checkDirExist(newpath.toString().endsWith(File.separator) ? newpath.toString() : newpath.toString()
+                .concat(File.separator));
 
+    }
+
+    /**
+     * Checks if the working dir exist otherwise returns the approviate
+     * message.
+     * 
+     * @param newpath
+     * @return
+     */
+    private String checkDirExist(String newpath) {
+
+        File file = new File(newpath);
+        return file.isDirectory() ? newpath : "cd: " + newpath + ": No such file or directory";
     }
 
 }

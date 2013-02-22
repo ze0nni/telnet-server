@@ -5,9 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.akhettar.telnet.Constants;
 
@@ -20,7 +18,7 @@ import com.akhettar.telnet.Constants;
  */
 public class TelnetServer {
 
-    private final Logger logger = LogManager.getLogger(TelnetServer.class);
+    private final java.util.logging.Logger logger = Logger.getLogger(TelnetServer.class.getName());
     private final int NUMBER_OF_THREADS = 120;
     private ServerSocket server = null;
     private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);

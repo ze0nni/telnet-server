@@ -56,14 +56,14 @@ public class ClientWorker implements Runnable {
 
                 //handle the command
                 final CommandHandler handler = fac.getHandler(command, WORKING_DIR);
-                final String response = handler.handle();
+                String response = handler.handle();
 
                 // setting the working directory
                 if (handler instanceof CDHandler) {
-                    WORKING_DIR = response;
+
+                    WORKING_DIR = response.contains("No such file or directory") ? WORKING_DIR : response;
                     logger.info("Working directory set to: " + WORKING_DIR);
                 }
-
                 out.println(response);
 
                 // command issuing an exit.

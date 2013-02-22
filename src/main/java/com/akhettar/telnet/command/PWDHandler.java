@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.akhettar.telnet.command;
 
 import org.apache.log4j.LogManager;

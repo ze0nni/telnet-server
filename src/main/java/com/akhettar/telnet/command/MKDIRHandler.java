@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.akhettar.telnet.command;
 
 import org.apache.log4j.LogManager;
@@ -31,7 +28,7 @@ public class MKDIRHandler implements CommandHandler {
 
         logger.info("running the follwoing commnad:" + command);
 
-        return workingDir;
+        return "Directory [" + workingDir + "] has been successfully created";
 
     }
 
