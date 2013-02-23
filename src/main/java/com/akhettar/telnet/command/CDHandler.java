@@ -40,8 +40,7 @@ public class CDHandler implements CommandHandler {
             newpath.append(File.separator);
             newpath.append(dirpath);
         }
-        return checkDirExist(newpath.toString().endsWith(File.separator) ? newpath.toString() : newpath.toString()
-                .concat(File.separator));
+        return checkDirExist(newpath.toString());
 
     }
 
@@ -54,7 +53,9 @@ public class CDHandler implements CommandHandler {
      */
     private String checkDirExist(String newpath) {
 
-        File file = new File(newpath);
+        File file = new File(newpath.toString().endsWith(File.separator) ? newpath.toString() : newpath.toString()
+                + File.separator);
+
         return file.isDirectory() ? newpath : "cd: " + newpath + ": No such file or directory";
     }
 

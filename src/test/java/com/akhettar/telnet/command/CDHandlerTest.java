@@ -1,5 +1,7 @@
 package com.akhettar.telnet.command;
 
+import java.io.File;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -20,12 +22,12 @@ public class CDHandlerTest {
      * Holds a path to an existing directory derived from the server.properties which is stored in class path
      * to allow these tests to be run in any machine successfully.
      */
-    private String dirpath;
+    private String workingDir;
 
     @Before
-    public void setUp() {
-        final String path = ClassLoader.getSystemResource("server.properties").getPath();
-        dirpath = path.substring(0, path.indexOf("server.properties"));
+    public void setUp() throws Exception {
+
+        workingDir = System.getProperty("user.dir");
 
     }
 
@@ -35,10 +37,8 @@ public class CDHandlerTest {
     @Test
     public void testHandleFirstCDCommand() {
 
-        logger.info("****** " + dirpath + "******");
-
-        CommandHandler handler = new CDHandler("cd " + dirpath, null);
-        assertEquals(dirpath, handler.handle());
+        CommandHandler handler = new CDHandler("cd " + workingDir, null);
+        assertEquals(workingDir, handler.handle());
     }
 
     /**
@@ -47,10 +47,9 @@ public class CDHandlerTest {
     @Test
     public void testHandleSecondCDCommand() {
 
-        final String workingDir = dirpath.substring(0, dirpath.indexOf("/target/"));
-        logger.info("****** " + workingDir + "******");
-        CommandHandler handler = new CDHandler("cd target/test-classes/", workingDir);
-        assertEquals(dirpath, handler.handle());
+        assert new File(workingDir + File.separator + "tmp").mkdirs();
+        CommandHandler handler = new CDHandler("cd " + "tmp", workingDir);
+        assertEquals(workingDir + File.separator + "tmp", handler.handle());
     }
 
 }
