@@ -10,7 +10,9 @@ How to run the server
 
 > Maven: mvn exec:java
 
+
 > IDE: run ServerLauncher.java as Java application.
+
 
 > Maven build jar
 
