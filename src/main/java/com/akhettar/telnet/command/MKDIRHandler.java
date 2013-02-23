@@ -1,9 +1,13 @@
 package com.akhettar.telnet.command;
 
+import java.io.File;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
+ * Make directory handler.
+ * 
  * @author a.khettar
  * 
  */
@@ -27,8 +31,17 @@ public class MKDIRHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
+        boolean created = false;
+        final String newDir = command.split(" ")[1];
 
-        return "Directory [" + workingDir + "] has been successfully created";
+        // TODO handle windows system dir
+        if (newDir.startsWith(File.separator)) {
+            created = new File(newDir).mkdirs();
+        } else {
+            created = new File(workingDir + File.separator + newDir).mkdirs();
+        }
+        return created ? "Directory [" + newDir + "] has been successfully created"
+                : "Failed to created the following directory: " + newDir;
 
     }
 

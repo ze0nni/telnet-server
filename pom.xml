@@ -3,7 +3,7 @@
 
 	<groupId>com.akhettar.telnet</groupId>
 	<artifactId>telnet-server</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>telnet-server</name>
@@ -32,8 +32,15 @@
 			<version>2.1</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
+		<finalName>telnet-server</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- Allows HelloCamelClient to be run via 'mvn exec:java' -->
 			<plugin>
@@ -45,7 +52,18 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		
+
 	</build>
-	
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+			</plugin>
+
+		</plugins>
+	</reporting>
+
+
 </project>

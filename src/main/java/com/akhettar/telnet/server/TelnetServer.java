@@ -18,7 +18,7 @@ import com.akhettar.telnet.Constants;
  */
 public class TelnetServer {
 
-    private final java.util.logging.Logger logger = Logger.getLogger(TelnetServer.class.getName());
+    private final Logger logger = Logger.getLogger(TelnetServer.class.getName());
     private final int NUMBER_OF_THREADS = 120;
     private ServerSocket server = null;
     private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -30,7 +30,7 @@ public class TelnetServer {
     public void run() {
 
         try {
-            // establish the connection
+            // establish a connection
             server = new ServerSocket(Constants.PORT_NUM);
             logger.info("Server running and listening on port : " + Constants.PORT_NUM);
 
@@ -40,7 +40,7 @@ public class TelnetServer {
             }
 
         } catch (IOException e) {
-
+            logger.severe(e.getMessage());
         } finally {
             executor.shutdown();
 

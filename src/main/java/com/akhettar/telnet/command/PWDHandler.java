@@ -4,6 +4,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 /**
+ * The pwd handler. Just return the current working directory.
+ * 
  * @author a.khettar
  * 
  */

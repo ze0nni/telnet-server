@@ -17,6 +17,7 @@ import com.akhettar.telnet.Constants;
 import com.akhettar.telnet.util.ServerLauncherHelper;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -49,6 +50,9 @@ public class TelnetServerTest {
         socket = new Socket();
         socket.connect(socketAddress, 10000);
 
+        // reading welcome message
+        assertNotNull(new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine());
+
         workingDir = System.getProperty("home.dir");
 
     }
@@ -74,6 +78,7 @@ public class TelnetServerTest {
 
         final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
         writer.println("status");
         final String message = in.readLine();
         assertEquals("Server running", message);

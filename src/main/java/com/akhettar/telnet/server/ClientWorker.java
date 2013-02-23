@@ -47,13 +47,16 @@ public class ClientWorker implements Runnable {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             final PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
+            // display welcome screen
             out.println(buildWelcomeScreen());
+
             boolean cancel = false;
             CommandHandlerFactory fac = CommandHandlerFactory.getInstance();
             while (!cancel) {
 
                 final String command = reader.readLine();
                 if (command == null) {
+
                     continue;
                 }
 
