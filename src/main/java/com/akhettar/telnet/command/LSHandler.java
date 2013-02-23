@@ -1,5 +1,7 @@
 package com.akhettar.telnet.command;
 
+import java.io.File;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -29,9 +31,13 @@ public class LSHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
-
-        return workingDir;
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        for (String file : new File(workingDir).list()) {
+            builder.append(new File(workingDir + File.separator + file).isDirectory() ? "d - " + file : "f - " + file);
+            builder.append("\n");
+        }
+        return builder.toString();
 
     }
-
 }

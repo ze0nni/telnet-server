@@ -22,6 +22,7 @@ public class TelnetServer {
     private final int NUMBER_OF_THREADS = 120;
     private ServerSocket server = null;
     private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private final String homeDir = System.getProperty("user.dir");
 
     /**
      * The main method to start the telnet server
@@ -32,12 +33,10 @@ public class TelnetServer {
             // establish the connection
             server = new ServerSocket(Constants.PORT_NUM);
             logger.info("Server running and listening on port : " + Constants.PORT_NUM);
+
             while (true) {
-
-                // send the job the to the client worker
                 Socket s = server.accept();
-                executor.execute(new ClientWorker(s));
-
+                executor.execute(new ClientWorker(s, homeDir));
             }
 
         } catch (IOException e) {

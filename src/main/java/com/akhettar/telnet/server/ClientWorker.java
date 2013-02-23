@@ -24,14 +24,15 @@ import com.akhettar.telnet.command.ExitHandler;
 public class ClientWorker implements Runnable {
 
     private final Socket socket;
-    private String WORKING_DIR = null;
+    private String workingDir;
     private final Logger logger = LogManager.getLogger(ClientWorker.class);
 
     /**
      * @param socket
      */
-    public ClientWorker(final Socket socket) {
+    public ClientWorker(final Socket socket, String homeDir) {
         this.socket = socket;
+        this.workingDir = homeDir;
     }
 
     /*
@@ -45,6 +46,8 @@ public class ClientWorker implements Runnable {
         try {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             final PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+            out.println(buildWelcomeScreen());
             boolean cancel = false;
             CommandHandlerFactory fac = CommandHandlerFactory.getInstance();
             while (!cancel) {
@@ -55,14 +58,14 @@ public class ClientWorker implements Runnable {
                 }
 
                 //handle the command
-                final CommandHandler handler = fac.getHandler(command, WORKING_DIR);
+                final CommandHandler handler = fac.getHandler(command, workingDir);
                 String response = handler.handle();
 
                 // setting the working directory
                 if (handler instanceof CDHandler) {
 
-                    WORKING_DIR = response.contains("No such file or directory") ? WORKING_DIR : response;
-                    logger.info("Working directory set to: " + WORKING_DIR);
+                    workingDir = response.contains("No such file or directory") ? workingDir : response;
+                    logger.info("Working directory set to: " + workingDir);
                 }
                 out.println(response);
 
@@ -81,6 +84,41 @@ public class ClientWorker implements Runnable {
 
             }
         }
+    }
+
+    /**
+     * Builds welcome screen.
+     * 
+     * @return
+     */
+    private String buildWelcomeScreen() {
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("\n");
+        builder.append("======================================================");
+        builder.append("\n");
+        builder.append("\n");
+        builder.append("   Welcome to Telnet Server: Version 1.0   ");
+        builder.append("\n");
+        builder.append("\n");
+        builder.append("======================================================");
+        builder.append("\n");
+        builder.append("\n");
+        builder.append("List of possible commands:");
+        builder.append("\n");
+        builder.append("\n");
+        builder.append("cd : [ cd /usr/local]");
+        builder.append("\n");
+        builder.append("pwd");
+        builder.append("\n");
+        builder.append("ls");
+        builder.append("\n");
+        builder.append("mkdir : [ mkdir /usr/local/tmp]");
+        builder.append("\n");
+        builder.append("exit : to quit the program");
+        builder.append("\n");
+
+        return builder.toString();
     }
 
 }

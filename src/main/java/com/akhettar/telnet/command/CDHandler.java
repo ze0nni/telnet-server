@@ -32,9 +32,10 @@ public class CDHandler implements CommandHandler {
 
         logger.info("Running the follwing command: " + command);
         String dirpath = command.split(" ")[1];
+
         StringBuilder newpath = new StringBuilder();
-        if (workingDir == null) {
-            newpath.append(dirpath);
+        if (dirpath.startsWith(File.separator)) {
+            return checkDirExist(dirpath);
         } else {
             newpath.append(workingDir);
             newpath.append(File.separator);

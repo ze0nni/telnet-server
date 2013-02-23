@@ -32,4 +32,20 @@
 			<version>2.1</version>
 		</dependency>
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<!-- Allows HelloCamelClient to be run via 'mvn exec:java' -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<mainClass>com.akhettar.telnet.server.ServerLauncher</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+		
+	</build>
+	
 </project>

@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * 
- * {@link TelnetServer} Integration Test.
+ * {@link TelnetServer} Integration Test. The test suite kicks off the telnet server
+ * and the client issue commands which will be asserted.
  * 
  * @author a.khettar
  * 
@@ -30,6 +32,7 @@ public class TelnetServerTest {
     private final SocketAddress socketAddress = new InetSocketAddress("localhost", Constants.PORT_NUM);
     private Socket socket;
     private ServerLauncherHelper helper;
+    private String workingDir;
 
     /**
      * Prepare the clients
@@ -45,6 +48,8 @@ public class TelnetServerTest {
         // create the client
         socket = new Socket();
         socket.connect(socketAddress, 10000);
+
+        workingDir = System.getProperty("home.dir");
 
     }
 
@@ -101,8 +106,9 @@ public class TelnetServerTest {
 
         final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println("cd /usr/dfjlkdjflkdjflkadjfld");
-        assertEquals("cd: /usr/dfjlkdjflkdjflkadjfld/: No such file or directory", in.readLine());
+        final String randomDirName = UUID.randomUUID().toString();
+        writer.println("cd /usr/" + randomDirName);
+        assertEquals("cd: /usr/" + randomDirName + ": No such file or directory", in.readLine());
 
     }
 

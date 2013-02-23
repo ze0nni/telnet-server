@@ -4,10 +4,12 @@ import java.io.File;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * {@link CDHandler} Unit test.
@@ -29,6 +31,18 @@ public class CDHandlerTest {
 
         workingDir = System.getProperty("user.dir");
 
+        // create two tmp dir
+        boolean created = new File(workingDir + File.separator + "tmp1").mkdirs();
+        assert created;
+        assertTrue(new File(workingDir + File.separator + "tmp2").mkdirs());
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        new File(workingDir + File.separator + "tmp1").delete();
+        new File(workingDir + File.separator + "tmp2").delete();
+
     }
 
     /**
@@ -45,11 +59,26 @@ public class CDHandlerTest {
      * Test method for {@link com.akhettar.telnet.command.CDHandler#handle()}.
      */
     @Test
-    public void testHandleSecondCDCommand() {
+    public void testHandleSubsequentCDCommand() {
 
-        assert new File(workingDir + File.separator + "tmp").mkdirs();
-        CommandHandler handler = new CDHandler("cd " + "tmp", workingDir);
-        assertEquals(workingDir + File.separator + "tmp", handler.handle());
+        CommandHandler handler = new CDHandler("cd " + "tmp1", workingDir);
+        assertEquals(workingDir + File.separator + "tmp1", handler.handle());
+
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.command.CDHandler#handle()}.
+     */
+    @Test
+    public void testHandleCDCommandRootDir() {
+
+        CommandHandler handler = new CDHandler("cd " + "tmp1", workingDir);
+        assertEquals(workingDir + File.separator + "tmp1", handler.handle());
+
+        // cd from root dir
+        handler = new CDHandler("cd " + workingDir + File.separator + "tmp2", workingDir);
+        assertEquals(workingDir + File.separator + "tmp2", handler.handle());
+
     }
 
 }
