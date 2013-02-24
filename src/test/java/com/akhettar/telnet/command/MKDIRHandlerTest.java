@@ -65,9 +65,10 @@ public class MKDIRHandlerTest {
     @Test
     public void testHandleMkdirWrongPathShouldReturnErrorMessage() {
 
-        CommandHandler handler = new MKDIRHandler("mkdir /usr/dfjkldfdjfdur", workingDir);
+        CommandHandler handler = new MKDIRHandler("mkdir " + File.separator + "us/dfjkldfdjfdur", workingDir);
 
-        assertEquals("Failed to created the following directory: /usr/dfjkldfdjfdur. Check the path exist",
+        assertEquals(
+                "Failed to created the following directory: /us/dfjkldfdjfdur. Check the path exist or you have the right permissions",
                 handler.handle());
 
     }

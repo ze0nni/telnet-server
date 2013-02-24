@@ -41,7 +41,8 @@ public class MKDIRHandler implements CommandHandler {
             created = new File(workingDir + File.separator + newDir).mkdirs();
         }
         return created ? "Directory [" + newDir + "] has been successfully created"
-                : "Failed to created the following directory: " + newDir + ". Check the path exist";
+                : "Failed to created the following directory: " + newDir
+                        + ". Check the path exist or you have the right permissions";
 
     }
 
