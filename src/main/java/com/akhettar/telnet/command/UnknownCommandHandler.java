@@ -24,19 +24,20 @@ public class UnknownCommandHandler implements CommandHandler {
     @Override
     public String handle() {
 
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
         StringBuilder builder = new StringBuilder();
         builder.append("Unknown command [" + command + "]");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("Here are the list of commands you could run:");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("cd [directory name]");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("ls");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("mkdir");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("status");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("pwd");
         return builder.toString();
     }

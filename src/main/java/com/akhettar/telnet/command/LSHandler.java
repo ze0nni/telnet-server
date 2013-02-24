@@ -31,11 +31,12 @@ public class LSHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
         StringBuilder builder = new StringBuilder();
-        builder.append("\n");
+        builder.append(cr);
         for (String file : new File(workingDir).list()) {
             builder.append(new File(workingDir + File.separator + file).isDirectory() ? "d - " + file : "f - " + file);
-            builder.append("\n");
+            builder.append(cr);
         }
         return builder.toString();
 
