@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 import com.akhettar.telnet.Util;
 import com.akhettar.telnet.command.CDHandler;
@@ -26,7 +24,7 @@ public class ClientWorker implements Runnable {
 
     private final Socket socket;
     private String workingDir;
-    private final Logger logger = LogManager.getLogger(ClientWorker.class);
+    private final Logger logger = Logger.getLogger(ClientWorker.class.getName());
 
     /**
      * @param socket
@@ -68,7 +66,8 @@ public class ClientWorker implements Runnable {
                 // setting the working directory
                 if (handler instanceof CDHandler) {
 
-                    workingDir = response.contains("No such file or directory") ? workingDir : response;
+                    workingDir = (response.contains("No such file or directory") || response
+                            .contains("You must supply directory name")) ? workingDir : response;
                     logger.info("Working directory set to: " + workingDir);
                 }
                 out.println(response);

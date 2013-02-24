@@ -3,6 +3,7 @@ package com.akhettar.telnet.server;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -61,7 +62,7 @@ public class TelnetServerTest {
     @After
     public void teardown() throws Exception {
 
-        // create the client.
+        // close the client.
         socket.close();
 
         // shutdown the server
@@ -182,13 +183,39 @@ public class TelnetServerTest {
     @Test
     public void testLSFromWorkingDir() throws Exception {
 
-        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        new BufferedReader(new InputStreamReader(socket.getInputStream()));
         final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
         writer.println("ls");
 
-        assertEquals("", in.readLine());
+        String response = buildResponse(socket.getInputStream());
+        assertTrue(response.contains("pom.xml"));
 
+    }
+
+    /**
+     * Read the complete message from the server.
+     * 
+     * @param in
+     * @return
+     * @throws IOException
+     */
+    private String buildResponse(InputStream in) throws IOException {
+
+        StringBuilder builder = new StringBuilder();
+        byte[] buff = new byte[1024];
+        int ret_read = 0;
+
+        do {
+            ret_read = in.read(buff);
+            if (ret_read > 0) {
+                builder.append(new String(buff, 0, ret_read));
+                builder.append("\n");
+
+            }
+        } while (in.available() > 0);
+
+        return builder.toString();
     }
 
     /**

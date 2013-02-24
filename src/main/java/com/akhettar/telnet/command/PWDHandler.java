@@ -1,7 +1,6 @@
 package com.akhettar.telnet.command;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * The pwd handler. Just return the current working directory.
@@ -12,7 +11,7 @@ import org.apache.log4j.Logger;
 public class PWDHandler implements CommandHandler {
 
     private final String command;
-    private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final Logger logger = Logger.getLogger(PWDHandler.class.getName());
     private final String workingDir;
 
     public PWDHandler(final String command, String workingDir) {

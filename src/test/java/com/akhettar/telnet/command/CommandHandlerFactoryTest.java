@@ -26,9 +26,18 @@ public class CommandHandlerFactoryTest {
      * Test method for {@link com.akhettar.telnet.command.CommandHandlerFactory#getHandler(java.lang.String)}.
      */
     @Test
-    public void testGetCDHandler() {
+    public void testGetCDHandlerDirectoryNotSuppliedShouldReturnUnknownCommand() {
 
-        assertTrue(CommandHandlerFactory.getInstance().getHandler("cd", "") instanceof CDHandler);
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("cd", "") instanceof UnknownCommandHandler);
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.command.CommandHandlerFactory#getHandler(java.lang.String)}.
+     */
+    @Test
+    public void testGetCDHandlerDirectory() {
+
+        assertTrue(CommandHandlerFactory.getInstance().getHandler("cd /usr", "") instanceof CDHandler);
     }
 
     /**

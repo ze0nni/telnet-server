@@ -63,7 +63,10 @@ public class TelnetServer {
      * @throws IOException
      */
     public void shutDown() throws IOException {
+        if (server != null) {
+            server.close();
 
-        server.close();
+        }
+
     }
 }

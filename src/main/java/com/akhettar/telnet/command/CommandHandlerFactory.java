@@ -30,7 +30,7 @@ public class CommandHandlerFactory {
      * @return
      */
     public CommandHandler getHandler(final String command, final String workingDir) {
-        if (command.matches("^cd.*")) {
+        if (command.matches("^cd .*")) {
             return new CDHandler(command, workingDir);
         } else if (command.matches("^ls.*")) {
             return new LSHandler(command, workingDir);

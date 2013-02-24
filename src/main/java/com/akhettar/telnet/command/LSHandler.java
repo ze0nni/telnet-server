@@ -1,9 +1,7 @@
 package com.akhettar.telnet.command;
 
 import java.io.File;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * ls command handler
@@ -14,7 +12,7 @@ import org.apache.log4j.Logger;
 public class LSHandler implements CommandHandler {
 
     private final String command;
-    private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final Logger logger = Logger.getLogger(StatusHandler.class.getName());
     private final String workingDir;
 
     public LSHandler(final String command, String workingDir) {

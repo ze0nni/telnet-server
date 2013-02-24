@@ -2,8 +2,6 @@ package com.akhettar.telnet.command;
 
 import java.io.File;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +17,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class CDHandlerTest {
 
-    private final Logger logger = LogManager.getLogger(CDHandlerTest.class);
     /**
      * Holds a path to an existing directory derived from the server.properties which is stored in class path
      * to allow these tests to be run in any machine successfully.
@@ -78,6 +75,17 @@ public class CDHandlerTest {
         // cd from root dir
         handler = new CDHandler("cd " + workingDir + File.separator + "tmp2", workingDir);
         assertEquals(workingDir + File.separator + "tmp2", handler.handle());
+
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.command.CDHandler#handle()}.
+     */
+    @Test
+    public void testHandleCDCommandWrongExpression() throws Exception {
+
+        CommandHandler handler = new CDHandler("cd ", workingDir);
+        assertEquals("You must supply directory name: cd [directory name]", handler.handle());
 
     }
 

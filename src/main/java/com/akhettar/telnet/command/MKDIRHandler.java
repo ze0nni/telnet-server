@@ -1,9 +1,7 @@
 package com.akhettar.telnet.command;
 
 import java.io.File;
-
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
 /**
  * Make directory handler.
@@ -14,7 +12,7 @@ import org.apache.log4j.Logger;
 public class MKDIRHandler implements CommandHandler {
 
     private final String command;
-    private final Logger logger = LogManager.getLogger(StatusHandler.class);
+    private final Logger logger = Logger.getLogger(MKDIRHandler.class.getName());
     private final String workingDir;
 
     public MKDIRHandler(final String command, String workingDir) {
