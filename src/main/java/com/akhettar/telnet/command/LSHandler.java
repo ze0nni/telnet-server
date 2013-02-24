@@ -31,7 +31,7 @@ public class LSHandler implements CommandHandler {
     public String handle() {
 
         logger.info("running the follwoing commnad:" + command);
-        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r\n" : "\n";
         StringBuilder builder = new StringBuilder();
         builder.append(cr);
         for (String file : new File(workingDir).list()) {

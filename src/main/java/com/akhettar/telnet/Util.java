@@ -12,7 +12,7 @@ public final class Util {
      * @return
      */
     public static String buildWelcomeScreen() {
-        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r\n" : "\n";
         StringBuilder builder = new StringBuilder();
         builder.append(cr);
         builder.append("======================================================");

@@ -18,7 +18,7 @@ public class UtilTest {
      */
     @Before
     public void setUp() throws Exception {
-        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r\n" : "\n";
         expected = new StringBuilder();
         expected.append(cr);
         expected.append("======================================================");

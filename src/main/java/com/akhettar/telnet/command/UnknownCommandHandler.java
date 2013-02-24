@@ -24,7 +24,7 @@ public class UnknownCommandHandler implements CommandHandler {
     @Override
     public String handle() {
 
-        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r\n" : "\n";
         StringBuilder builder = new StringBuilder();
         builder.append("Unknown command [" + command + "]");
         builder.append(cr);

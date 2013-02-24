@@ -19,7 +19,7 @@ public class UnknownCommandHandlerTest {
      */
     @Before
     public void setUp() throws Exception {
-        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r\n" : "\n";
         handler = new UnknownCommandHandler("hello");
         builder = new StringBuilder();
         builder.append("Unknown command [hello]");
