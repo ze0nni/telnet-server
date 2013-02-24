@@ -48,7 +48,7 @@ public class ClientWorker implements Runnable {
             final PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 
             // display welcome screen
-            out.println(buildWelcomeScreen());
+            //out.println(buildWelcomeScreen());
 
             boolean cancel = false;
             CommandHandlerFactory fac = CommandHandlerFactory.getInstance();
@@ -95,31 +95,32 @@ public class ClientWorker implements Runnable {
      * @return
      */
     private String buildWelcomeScreen() {
-
+        String os = System.getProperty("os.name");
+        String CARRIAGE_RETURN = System.getProperty("os.name").contains("Windows") ? "\r": "\n";
         StringBuilder builder = new StringBuilder();
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
         builder.append("======================================================");
-        builder.append("\n");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
+        builder.append(CARRIAGE_RETURN);
         builder.append("   Welcome to Telnet Server: Version 1.0   ");
-        builder.append("\n");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
+        builder.append(CARRIAGE_RETURN);
         builder.append("======================================================");
-        builder.append("\n");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
+        builder.append(CARRIAGE_RETURN);
         builder.append("List of possible commands:");
-        builder.append("\n");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
+        builder.append(CARRIAGE_RETURN);
         builder.append("cd : [ cd /usr/local]");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
         builder.append("pwd");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
         builder.append("ls");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
         builder.append("mkdir : [ mkdir /usr/local/tmp]");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
         builder.append("exit : to quit the program");
-        builder.append("\n");
+        builder.append(CARRIAGE_RETURN);
 
         return builder.toString();
     }
