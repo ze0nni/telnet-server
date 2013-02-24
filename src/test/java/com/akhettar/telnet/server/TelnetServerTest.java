@@ -224,19 +224,6 @@ public class TelnetServerTest {
 
     }
 
-    /**
-     * 
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testShutdown() throws Exception {
-
-        server.shutDown();
-        Thread.sleep(3000);
-        assertTrue(!server.isRunning());
-    }
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     //                                                  Private Methods
