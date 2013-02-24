@@ -27,7 +27,7 @@ public class ExitHandlerTest {
      */
     @Test
     public void testHandle() {
-        assertEquals("Goodbye", handler.handle());
+        assertEquals("Goodbye...", handler.handle());
     }
 
 }

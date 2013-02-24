@@ -35,7 +35,6 @@ public class TelnetServerTest {
     private Socket socket;
     private ServerLauncherHelper helper;
     private String workingDir;
-    private TelnetServer server;
 
     /**
      * Prepare the clients
@@ -233,9 +232,7 @@ public class TelnetServerTest {
      * @throws InterruptedException
      */
     private void startServerInBackground() throws InterruptedException {
-
-        server = new TelnetServer();
-        helper = new ServerLauncherHelper(server);
+        helper = new ServerLauncherHelper(new TelnetServer());
         new Thread(helper).start();
         Thread.sleep(3000);
     }
