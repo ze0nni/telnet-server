@@ -146,9 +146,11 @@ public class TelnetServerTest {
 
         final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println("mkdir /user/rubbish");
+        writer.println("mkdir " + File.separator + "user/rubbish");
 
-        assertEquals("Failed to created the following directory: /user/rubbish. Check the path exist", in.readLine());
+        assertEquals(
+                "Failed to created the following directory: /user/rubbish. Check the path exist or you have the right permissions",
+                in.readLine());
 
     }
 
