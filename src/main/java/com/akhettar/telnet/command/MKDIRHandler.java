@@ -35,7 +35,7 @@ public class MKDIRHandler implements CommandHandler {
         final String newDir = command.split(" ")[1];
 
         // handling directory creation from an absolute path
-        if (newDir.startsWith(File.separator) || newDir.matches("(C|c):.*")) {
+        if (newDir.startsWith("/") || newDir.matches("(C|c):.*")) {
             created = new File(newDir).mkdirs();
         } else {
             created = new File(workingDir + File.separator + newDir).mkdirs();
