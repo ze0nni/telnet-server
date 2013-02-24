@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.akhettar.telnet.server.TelnetServerTest
--------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.058 sec
