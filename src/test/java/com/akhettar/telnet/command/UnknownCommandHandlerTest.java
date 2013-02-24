@@ -19,21 +19,21 @@ public class UnknownCommandHandlerTest {
      */
     @Before
     public void setUp() throws Exception {
-
+        String cr = System.getProperty("os.name").matches("(W|w)indows.*") ? "\r" : "\n";
         handler = new UnknownCommandHandler("hello");
         builder = new StringBuilder();
         builder.append("Unknown command [hello]");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("Here are the list of commands you could run:");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("cd [directory name]");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("ls");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("mkdir");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("status");
-        builder.append("\n");
+        builder.append(cr);
         builder.append("pwd");
     }
 
