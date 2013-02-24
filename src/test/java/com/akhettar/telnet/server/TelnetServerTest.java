@@ -133,7 +133,7 @@ public class TelnetServerTest {
 
         assertEquals("Directory [" + randomDirName + "] has been successfully created", in.readLine());
 
-        new File(workingDir + File.separator + randomDirName).delete();
+        delete(workingDir + File.separator + randomDirName);
     }
 
     /**
@@ -160,6 +160,33 @@ public class TelnetServerTest {
     @Test
     public void testMKDIRFromRoot() throws Exception {
 
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        final String randomDirName = UUID.randomUUID().toString();
+        writer.println("mkdir " + workingDir + File.separator + randomDirName);
+
+        assertEquals("Directory [" + workingDir + File.separator + randomDirName + "] has been successfully created",
+                in.readLine());
+
+        delete(workingDir + File.separator + randomDirName);
+
+    }
+
+    /**
+     * Integration test for LS command.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testLSFromWorkingDir() throws Exception {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+
+        writer.println("ls");
+
+        assertEquals("", in.readLine());
+
     }
 
     /**
@@ -169,6 +196,16 @@ public class TelnetServerTest {
         helper = new ServerLauncherHelper(new TelnetServer());
         new Thread(helper).start();
         Thread.sleep(3000);
+    }
+
+    /**
+     * delete file or dir for given path.
+     * 
+     * @param path
+     * @throws Exception
+     */
+    private void delete(String path) throws Exception {
+        new File(path).delete();
     }
 
 }
