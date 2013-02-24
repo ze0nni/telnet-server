@@ -14,15 +14,15 @@ How to run the server
 > IDE: run ServerLauncher.java as Java application.
 
 
+How to build the jar
+=====================
+> mvn clean install (will run the tests too)
+
 > Maven build jar
 
   * mvn clean install to build the jar
   * cd target/ then run: java -jar telnet-server.jar
 
-
-How to build the jar
-=====================
-> mvn clean install (will run the tests too)
 
 
 How to run tests

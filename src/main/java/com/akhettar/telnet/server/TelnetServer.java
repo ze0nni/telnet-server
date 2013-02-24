@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.akhettar.telnet.Constants;
@@ -22,7 +23,7 @@ public class TelnetServer {
     private final int NUMBER_OF_THREADS = 120;
     private ServerSocket server = null;
     private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    private final String homeDir = System.getProperty("user.dir");
+    private final String workingDir = System.getProperty("user.dir");
 
     /**
      * The main method to start the telnet server
@@ -36,14 +37,13 @@ public class TelnetServer {
 
             while (true) {
                 Socket s = server.accept();
-                executor.execute(new ClientWorker(s, homeDir));
+                executor.execute(new ClientWorker(s, workingDir));
             }
 
         } catch (IOException e) {
-            logger.severe(e.getMessage());
+            logger.log(Level.SEVERE, "IO error occured while waiting for connection: " + e.getMessage(), e);
         } finally {
             executor.shutdown();
-
         }
 
     }

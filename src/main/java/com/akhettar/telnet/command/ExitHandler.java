@@ -14,7 +14,7 @@ public class ExitHandler implements CommandHandler {
     @Override
     public String handle() {
 
-        return "Exiting...";
+        return "Goodbye...";
     }
 
 }

@@ -3,7 +3,6 @@ package com.akhettar.telnet.server;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -36,6 +35,7 @@ public class TelnetServerTest {
     private Socket socket;
     private ServerLauncherHelper helper;
     private String workingDir;
+    private TelnetServer server;
 
     /**
      * Prepare the clients
@@ -181,48 +181,74 @@ public class TelnetServerTest {
      * @throws Exception
      */
     @Test
-    public void testLSFromWorkingDir() throws Exception {
+    public void testExitCommand() throws Exception {
 
-        new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-        writer.println("ls");
-
-        String response = buildResponse(socket.getInputStream());
-        assertTrue(response.contains("pom.xml"));
+        writer.println("exit");
+        assertEquals("Goodbye...", in.readLine());
 
     }
 
     /**
-     * Read the complete message from the server.
+     * Integration test for LS command.
      * 
-     * @param in
-     * @return
-     * @throws IOException
+     * @throws Exception
      */
-    private String buildResponse(InputStream in) throws IOException {
+    @Test
+    public void testPWDFromWorkingDir() throws Exception {
 
-        StringBuilder builder = new StringBuilder();
-        byte[] buff = new byte[1024];
-        int ret_read = 0;
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
 
-        do {
-            ret_read = in.read(buff);
-            if (ret_read > 0) {
-                builder.append(new String(buff, 0, ret_read));
-                builder.append("\n");
+        writer.println("pwd");
+        assertEquals(workingDir, in.readLine());
 
-            }
-        } while (in.available() > 0);
-
-        return builder.toString();
     }
+
+    /**
+     * Integration test for LS command.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testPWDFromtmpDir() throws Exception {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        writer.println("cd target");
+        assertEquals(workingDir + File.separator + "target", in.readLine());
+        writer.println("pwd");
+        assertEquals(workingDir + File.separator + "target", in.readLine());
+
+    }
+
+    /**
+     * 
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void testShutdown() throws Exception {
+
+        server.shutDown();
+        Thread.sleep(3000);
+        assertTrue(!server.isRunning());
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    //                                                  Private Methods
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * @throws InterruptedException
      */
     private void startServerInBackground() throws InterruptedException {
-        helper = new ServerLauncherHelper(new TelnetServer());
+
+        server = new TelnetServer();
+        helper = new ServerLauncherHelper(server);
         new Thread(helper).start();
         Thread.sleep(3000);
     }

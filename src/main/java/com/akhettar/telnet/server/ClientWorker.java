@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.akhettar.telnet.Util;
@@ -79,11 +80,12 @@ public class ClientWorker implements Runnable {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, e.getMessage(), e);
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
+                logger.log(Level.SEVERE, "Failed to close the socket", e);
 
             }
         }
