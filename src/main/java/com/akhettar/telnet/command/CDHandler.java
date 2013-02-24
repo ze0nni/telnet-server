@@ -34,7 +34,9 @@ public class CDHandler implements CommandHandler {
         String dirpath = command.split(" ")[1];
 
         StringBuilder newpath = new StringBuilder();
-        if (dirpath.startsWith(File.separator)) {
+
+        // navigating from working dir or an absolute path
+        if (dirpath.startsWith(File.separator) || dirpath.matches("(C|c):.*")) {
             return checkDirExist(dirpath);
         } else {
             newpath.append(workingDir);

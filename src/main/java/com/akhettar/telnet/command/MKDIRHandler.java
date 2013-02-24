@@ -34,14 +34,14 @@ public class MKDIRHandler implements CommandHandler {
         boolean created = false;
         final String newDir = command.split(" ")[1];
 
-        // TODO handle windows system dir
-        if (newDir.startsWith(File.separator)) {
+        // handling directory creation from an absolute path
+        if (newDir.startsWith(File.separator) || newDir.matches("(C|c):.*")) {
             created = new File(newDir).mkdirs();
         } else {
             created = new File(workingDir + File.separator + newDir).mkdirs();
         }
         return created ? "Directory [" + newDir + "] has been successfully created"
-                : "Failed to created the following directory: " + newDir;
+                : "Failed to created the following directory: " + newDir + ". Check the path exist";
 
     }
 

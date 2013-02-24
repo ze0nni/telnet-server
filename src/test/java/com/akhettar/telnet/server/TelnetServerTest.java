@@ -1,6 +1,7 @@
 package com.akhettar.telnet.server;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -53,7 +54,7 @@ public class TelnetServerTest {
         // reading welcome message
         assertNotNull(new BufferedReader(new InputStreamReader(socket.getInputStream())).readLine());
 
-        workingDir = System.getProperty("home.dir");
+        workingDir = System.getProperty("user.dir");
 
     }
 
@@ -114,6 +115,50 @@ public class TelnetServerTest {
         final String randomDirName = UUID.randomUUID().toString();
         writer.println("cd /usr/" + randomDirName);
         assertEquals("cd: /usr/" + randomDirName + ": No such file or directory", in.readLine());
+
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.server.TelnetServer#run()}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testMKDIRInWorkingDirectory() throws Exception {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        final String randomDirName = UUID.randomUUID().toString();
+        writer.println("mkdir " + randomDirName);
+
+        assertEquals("Directory [" + randomDirName + "] has been successfully created", in.readLine());
+
+        new File(workingDir + File.separator + randomDirName).delete();
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.server.TelnetServer#run()}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testMKDIRFromRootDirNotExistShouldReturnErrorMessage() throws Exception {
+
+        final BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        final PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+        writer.println("mkdir /user/rubbish");
+
+        assertEquals("Failed to created the following directory: /user/rubbish. Check the path exist", in.readLine());
+
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.server.TelnetServer#run()}.
+     * 
+     * @throws IOException
+     */
+    @Test
+    public void testMKDIRFromRoot() throws Exception {
 
     }
 

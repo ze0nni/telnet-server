@@ -25,7 +25,7 @@ public class MKDIRHandlerTest {
     @Before
     public void setUp() throws Exception {
 
-        workingDir = System.getProperty("user.home");
+        workingDir = System.getProperty("user.dir");
     }
 
     /**
@@ -49,6 +49,26 @@ public class MKDIRHandlerTest {
      */
     @Test
     public void testHandleMkdirFromRootDir() {
+
+        String newDir = workingDir + File.separator + UUID.randomUUID().toString();
+        CommandHandler handler = new MKDIRHandler("mkdir " + newDir, workingDir);
+
+        assertEquals("Directory [" + newDir + "] has been successfully created", handler.handle());
+        assertTrue(new File(newDir).exists());
+
+        new File(newDir).delete();
+    }
+
+    /**
+     * Test method for {@link com.akhettar.telnet.command.MKDIRHandler#handle()}.
+     */
+    @Test
+    public void testHandleMkdirWrongPathShouldReturnErrorMessage() {
+
+        CommandHandler handler = new MKDIRHandler("mkdir /usr/dfjkldfdjfdur", workingDir);
+
+        assertEquals("Failed to created the following directory: /usr/dfjkldfdjfdur. Check the path exist",
+                handler.handle());
 
     }
 
