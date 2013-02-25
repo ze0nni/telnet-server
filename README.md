@@ -19,8 +19,9 @@ Running example
 
 * Run the server as above explanation. 
 * open a bash or cmd terminal and run: telnet localhost 12667. It should display an welcome message with all the possible commands. By default working directoy is set to 'user.home', i.e (wherever you unzipped the file)
+
 * Limitations of some of the commands:
-** LS: It only list the files within the working directory
+# LS: It only list the files within the working directory
 ** cd: supports cd into sub-directories of the 'user.home' directory. Full path can is also supported such as '/usr/local' or 'C:\Documents'.
 
 How to build the jar
