@@ -33,11 +33,10 @@ public class CDHandler implements CommandHandler {
         if (command.split(" ").length == 1) {
             return "You must supply directory name: cd [directory name]";
         }
-        String dirpath = command.split(" ")[1];
-
+        String dirpath = command.split(" ", 2)[1];
         StringBuilder newpath = new StringBuilder();
 
-        // navigating from working dir or an absolute path
+        // navigating to an abs
         if (dirpath.startsWith("/") || dirpath.matches("(C|c):.*")) {
             return checkDirExist(dirpath);
         } else {

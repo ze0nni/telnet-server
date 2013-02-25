@@ -30,7 +30,7 @@ public class MKDIRHandler implements CommandHandler {
 
         logger.info("running the follwoing commnad:" + command);
         boolean created = false;
-        final String newDir = command.split(" ")[1];
+        final String newDir = command.split(" ", 2)[1];
 
         // handling directory creation from an absolute path
         if (newDir.startsWith("/") || newDir.matches("(C|c):.*")) {
