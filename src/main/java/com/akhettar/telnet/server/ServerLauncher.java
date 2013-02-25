@@ -17,6 +17,6 @@ public class ServerLauncher {
     public static void main(String[] args) {
 
         // launch the server
-        new TelnetServer().run();
+        new TelnetServer(args[0]).run();
     }
 }

@@ -233,7 +233,7 @@ public class TelnetServerTest {
      * @throws InterruptedException
      */
     private void startServerInBackground() throws InterruptedException {
-        helper = new ServerLauncherHelper(new TelnetServer());
+        helper = new ServerLauncherHelper(new TelnetServer(null));
         new Thread(helper).start();
         Thread.sleep(3000);
     }

@@ -25,6 +25,16 @@ public class TelnetServer {
             .newFixedThreadPool(ConfigurationManager.INSTANCE.getMaxThreads());
     private final String workingDir = System.getProperty("user.dir");
 
+    private final int GIVEN_PORT;
+
+    /**
+     * @param string
+     */
+    public TelnetServer(String port) {
+
+        GIVEN_PORT = port != null ? Integer.valueOf(port).intValue() : 0;
+    }
+
     /**
      * The main method to start the telnet server
      */
@@ -32,8 +42,9 @@ public class TelnetServer {
 
         try {
             // establish a connection
-            server = new ServerSocket(ConfigurationManager.INSTANCE.getPort());
-            logger.info("Server running and listening on port : " + ConfigurationManager.INSTANCE.getPort());
+            server = new ServerSocket(GIVEN_PORT == 0 ? ConfigurationManager.INSTANCE.getPort() : GIVEN_PORT);
+            logger.info("Server running and listening on port : "
+                    + (GIVEN_PORT == 0 ? ConfigurationManager.INSTANCE.getPort() : GIVEN_PORT));
 
             while (true) {
                 Socket s = server.accept();

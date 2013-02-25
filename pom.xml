@@ -41,7 +41,9 @@
 				<version>1.2</version>
 				<configuration>
 					<mainClass>com.akhettar.telnet.server.ServerLauncher</mainClass>
-
+					<arguments>
+						<argument>126667</argument>
+					</arguments>
 				</configuration>
 			</plugin>
 
