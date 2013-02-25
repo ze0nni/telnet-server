@@ -22,9 +22,9 @@ Running example
 
 * Limitations of some of the commands:
   
-> ls: It only list the files within the working directory
+> ls: It only list the files within the working directory, so path as argument isn't supported.
 
-> cd: supports cd into sub-directories of the 'user.home' directory. Full path can is also supported such as '/usr/local' or 'C:\Documents'.
+> cd: It supports navigating into sub-directories of the 'user.home' directory. Full path is also supported such as '/usr/local' or 'C:\Documents'.
 
 How to build the jar
 =====================
