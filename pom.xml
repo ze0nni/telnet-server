@@ -29,19 +29,23 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+
 				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<plugins>
-			<!-- Allows HelloCamelClient to be run via 'mvn exec:java' -->
+			<!-- Allows TelneTserver to be run via 'mvn exec:java' -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>1.2</version>
 				<configuration>
 					<mainClass>com.akhettar.telnet.server.ServerLauncher</mainClass>
+
 				</configuration>
 			</plugin>
+
+			<!-- Building the exectuable Jar -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>

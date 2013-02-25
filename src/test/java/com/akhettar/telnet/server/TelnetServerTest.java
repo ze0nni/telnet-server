@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.akhettar.telnet.Constants;
+import com.akhettar.telnet.configuration.ConfigurationManager;
 import com.akhettar.telnet.util.ServerLauncherHelper;
 
 import static org.junit.Assert.assertEquals;
@@ -31,7 +31,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class TelnetServerTest {
 
-    private final SocketAddress socketAddress = new InetSocketAddress("localhost", Constants.PORT_NUM);
+    private final SocketAddress socketAddress = new InetSocketAddress("localhost",
+            ConfigurationManager.INSTANCE.getPort());
     private Socket socket;
     private ServerLauncherHelper helper;
     private String workingDir;

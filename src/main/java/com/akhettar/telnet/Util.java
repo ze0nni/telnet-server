@@ -27,6 +27,8 @@ public final class Util {
         builder.append("List of possible commands:");
         builder.append(cr);
         builder.append(cr);
+        builder.append("Status: displays the status of the server");
+        builder.append(cr);
         builder.append("cd : [ cd /usr/local]");
         builder.append(cr);
         builder.append("pwd: displays the working directory");
@@ -37,7 +39,6 @@ public final class Util {
         builder.append(cr);
         builder.append("exit : quit this programme");
         builder.append(cr);
-
         return builder.toString();
     }
 

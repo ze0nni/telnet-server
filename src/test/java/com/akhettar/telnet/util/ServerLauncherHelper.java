@@ -29,10 +29,12 @@ public class ServerLauncherHelper implements Runnable {
     }
 
     /**
-     * 
+     * Shutdown the server
      */
     public void shutdown() throws Exception {
-        server.shutDown();
-    }
+        if (server.isRunning()) {
+            server.shutDown();
+        }
 
+    }
 }

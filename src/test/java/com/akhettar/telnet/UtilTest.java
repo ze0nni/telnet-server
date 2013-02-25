@@ -33,6 +33,8 @@ public class UtilTest {
         expected.append("List of possible commands:");
         expected.append(cr);
         expected.append(cr);
+        expected.append("Status: displays the status of the server");
+        expected.append(cr);
         expected.append("cd : [ cd /usr/local]");
         expected.append(cr);
         expected.append("pwd: displays the working directory");
@@ -43,6 +45,7 @@ public class UtilTest {
         expected.append(cr);
         expected.append("exit : quit this programme");
         expected.append(cr);
+
     }
 
     /**

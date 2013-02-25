@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.akhettar.telnet.Constants;
+import com.akhettar.telnet.configuration.ConfigurationManager;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,9 +20,9 @@ import com.akhettar.telnet.Constants;
 public class TelnetServer {
 
     private final Logger logger = Logger.getLogger(TelnetServer.class.getName());
-    private final int NUMBER_OF_THREADS = 120;
     private ServerSocket server = null;
-    private final ExecutorService executor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+    private final ExecutorService executor = Executors
+            .newFixedThreadPool(ConfigurationManager.INSTANCE.getMaxThreads());
     private final String workingDir = System.getProperty("user.dir");
 
     /**
@@ -32,8 +32,8 @@ public class TelnetServer {
 
         try {
             // establish a connection
-            server = new ServerSocket(Constants.PORT_NUM);
-            logger.info("Server running and listening on port : " + Constants.PORT_NUM);
+            server = new ServerSocket(ConfigurationManager.INSTANCE.getPort());
+            logger.info("Server running and listening on port : " + ConfigurationManager.INSTANCE.getPort());
 
             while (true) {
                 Socket s = server.accept();
@@ -41,7 +41,7 @@ public class TelnetServer {
             }
 
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "IO error occured while waiting for connection: " + e.getMessage(), e);
+            logger.log(Level.WARNING, "Shutting down the server..");
         } finally {
             executor.shutdown();
         }
@@ -64,6 +64,7 @@ public class TelnetServer {
      */
     public void shutDown() throws IOException {
         if (server != null) {
+
             server.close();
 
         }
