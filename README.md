@@ -2,7 +2,7 @@ Simple Telnet Server
 =====================
 
 
-This is a simple Telnet server written in Java. It supports basic Unix commands such as: ls, mkdir, pwd, cd, rm. It is intended for novice Java developer to lar how server/client communication is implemented in Java. 
+This is a simple Telnet server written in Java. It supports basic Unix commands such as: ls, mkdir, pwd, cd, rm. It is intended for novice Java developers to learn how to write server/client communication. It doesn't use any external libraries, so it's pure Core Java to factilitate the learning. Enjoy!
 
 
 How to run the server
